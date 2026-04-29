@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.spring.shorty.dto.ApiResponse;
-import com.spring.shorty.responses.LoginResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -39,9 +38,9 @@ public class GlobalExceptionHandler {
     }
     
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseEntity<LoginResponse> handleUnauthorized(UnauthorizedException ex){
+    public ResponseEntity<ApiResponse> handleUnauthorized(UnauthorizedException ex){
         return ResponseEntity
         		.status(401)
-        		.body(new LoginResponse("invalid credentials"));
+        		.body(new ApiResponse("invalid credentials", 401));
     }
 }	

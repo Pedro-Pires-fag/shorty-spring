@@ -23,7 +23,7 @@ public class AuthService {
 			throw new UnauthorizedException("Invalid Credentials");
 		
 		
-		return new LoginResponse("Login sucefully!");
+		return new LoginResponse(user.getId(), user.getUsername(), user.getEmail());
 	}
 
 }

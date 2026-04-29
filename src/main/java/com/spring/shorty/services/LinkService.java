@@ -3,6 +3,7 @@ package com.spring.shorty.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,14 @@ public class LinkService {
 
 
     public LinkEntity create(LinkEntity link) {
+
+        link.setShortCode(generateShortCode());
+        link.setClicks(0);
+        link.setIsActive(true);
+
         link.setCreatedAt(LocalDateTime.now());
         link.setUpdatedAt(LocalDateTime.now());
+
         return repository.save(link);
     }
 
@@ -47,12 +54,18 @@ public class LinkService {
         return repository.save(link);
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         repository.deleteById(id);
     }
 
     public void incrementClick(LinkEntity link) {
         link.setClicks(link.getClicks() + 1);
         repository.save(link);
+    }
+    
+    private String generateShortCode() {
+        return UUID.randomUUID()
+                .toString()
+                .substring(0, 6);
     }
 }

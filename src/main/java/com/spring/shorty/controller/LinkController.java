@@ -1,7 +1,9 @@
 package com.spring.shorty.controller;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,11 +22,9 @@ import com.spring.shorty.services.LinkService;
 @CrossOrigin(origins = "*")
 public class LinkController {
 
-    private final LinkService service;
+	@Autowired
+    private LinkService service;
 
-    public LinkController(LinkService service) {
-        this.service = service;
-    }
 
     @PostMapping
     public LinkEntity create(@RequestBody LinkEntity link) {
@@ -42,7 +42,7 @@ public class LinkController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable UUID id) {
         service.delete(id);
     }
 
